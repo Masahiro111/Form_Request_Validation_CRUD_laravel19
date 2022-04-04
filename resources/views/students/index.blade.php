@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
-            {{ __('Dashboard') }}
+            {{ __('Student Index') }}
         </h2>
     </x-slot>
 
@@ -20,6 +20,9 @@
                     </p>
                 </div>
 
+                @if (session('message'))
+                <h5>{{ session('message') }}</h5>
+                @endif
 
                 <table class="w-full whitespace-no-wrap">
                     <thead>

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StudentFormRequest;
 use App\Models\Student;
+use Exception;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -33,9 +35,20 @@ class StudentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StudentFormRequest $request)
     {
-        //
+
+        try {
+            Student::create($request->validated());
+
+            return redirect()
+                ->route('students.index')
+                ->with('message', 'Student added successfully.');
+        } catch (Exception $ex) {
+            return redirect()
+                ->route('students.index')
+                ->with('message', 'Something went wrong' . $ex);
+        }
     }
 
     /**
